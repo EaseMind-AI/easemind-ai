@@ -34,7 +34,14 @@ export default function Onboarding() {
   return (
     <div className="p-6 max-w-xl mx-auto text-center">
       <h1 className="text-3xl font-bold mb-6">👋 Welcome to EaseMind AI</h1>
-      <p className="mb-6 text-gray-600">Let's personalize your experience.</p>
+      <p className="mb-4 text-gray-700">
+        Personalizing your experience makes your wellness journey more engaging and effective.
+      </p>
+      <p className="mb-6 text-xs text-gray-500">
+        <span>
+          Evidence: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5579396/" target="_blank" rel="noopener noreferrer" className="underline">NIH</a>
+        </span>
+      </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
@@ -45,6 +52,7 @@ export default function Onboarding() {
             placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            autoFocus
           />
         </div>
 
@@ -59,6 +67,7 @@ export default function Onboarding() {
                   ? "bg-yellow-100 border-yellow-500"
                   : "bg-white border-gray-300"
               }`}
+              aria-pressed={theme === "light"}
             >
               ☀️ Light
             </button>
@@ -70,6 +79,7 @@ export default function Onboarding() {
                   ? "bg-gray-800 text-white border-gray-600"
                   : "bg-white border-gray-300"
               }`}
+              aria-pressed={theme === "dark"}
             >
               🌙 Dark
             </button>
@@ -78,7 +88,7 @@ export default function Onboarding() {
 
         <div>
           <label className="block mb-2 text-left font-medium">
-            Set Daily Reminder (optional):
+            Set Daily Reminder <span className="text-xs text-gray-400">(optional)</span>:
           </label>
           <input
             type="time"
@@ -90,8 +100,8 @@ export default function Onboarding() {
 
         <button
           type="submit"
-         className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
->
+          className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
+        >
           Finish Setup
         </button>
       </form>

@@ -24,7 +24,8 @@ export default function GroundingTool() {
 
   const handleNext = () => {
     const currentResponses = responses[stepIndex] || {};
-    const allFilled = Object.keys(currentResponses).length === currentStep.count &&
+    const allFilled =
+      Object.keys(currentResponses).length === currentStep.count &&
       Object.values(currentResponses).every(val => val.trim() !== "");
 
     if (!allFilled) {
@@ -42,6 +43,16 @@ export default function GroundingTool() {
   return (
     <div className="p-6 max-w-xl mx-auto text-center">
       <h1 className="text-2xl font-bold mb-4">🧍 5-4-3-2-1 Grounding Tool</h1>
+      <p className="mb-2 text-gray-700">
+        The 5-4-3-2-1 grounding technique helps you reconnect with the present moment and reduce anxiety. It’s recommended by mental health professionals for managing overwhelming feelings.
+        <br />
+        <span className="text-xs text-gray-500">
+          Source: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5579396/" target="_blank" rel="noopener noreferrer" className="underline">NIH</a>
+        </span>
+      </p>
+      <p className="mb-4 text-gray-600">
+        Complete each step below by listing what you notice with your senses.
+      </p>
 
       {!allStepsDone ? (
         <>
@@ -60,8 +71,8 @@ export default function GroundingTool() {
           </div>
           <button
             onClick={handleNext}
-            className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
->
+            className="btn btn-primary"
+          >
             Next
           </button>
         </>
@@ -76,8 +87,8 @@ export default function GroundingTool() {
 
       <Link
         to="/coping"
-         className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
->
+        className="btn btn-secondary mt-4"
+      >
         ⬅ Back to Coping Tools
       </Link>
     </div>

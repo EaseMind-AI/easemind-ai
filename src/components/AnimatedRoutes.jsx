@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import Home from "../pages/Home";
 import Reflection from "../pages/Reflection";
 import Mood from "../pages/Mood";
-import MoodHistory from "../pages/MoodHistory";
 import History from "../pages/History";
 import Journal from "../pages/Journal";
 import AIChat from "../pages/AIChat";
@@ -38,7 +37,6 @@ export default function AnimatedRoutes() {
         />
         <Route path="/reflection" element={<Reflection />} />
         <Route path="/mood" element={<Mood />} />
-        <Route path="/MoodHistory" element={<MoodHistory />} />
         <Route path="/History" element={<History />} />
         <Route path="/journal" element={<Journal />} />
         <Route path="/ai" element={<AIChat />} />

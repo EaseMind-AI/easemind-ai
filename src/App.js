@@ -7,7 +7,7 @@ function App() {
   const [showSplash, setShowSplash] = useState(true);
 
   useEffect(() => {
-    const timeout = setTimeout(() => setShowSplash(false), 1800); // faster splash
+    const timeout = setTimeout(() => setShowSplash(false), 1800); // Fast but smooth
     return () => clearTimeout(timeout);
   }, []);
 

@@ -16,19 +16,13 @@ export default function Journal() {
   const [entry, setEntry] = useState("");
   const [entries, setEntries] = useState([]);
   const [suggestedPrompt, setSuggestedPrompt] = useState("");
-  const [storageError, setStorageError] = useState(false);
 
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem("journalEntries")) || [];
-      if (Array.isArray(saved)) {
-        setEntries(saved);
-      } else {
-        throw new Error("Invalid journal data format");
-      }
+      if (Array.isArray(saved)) setEntries(saved);
     } catch (e) {
-      console.warn("⚠️ Could not load journal entries:", e);
-      setStorageError(true);
+      console.warn("Invalid journal data:", e);
     }
 
     setSuggestedPrompt(prompts[Math.floor(Math.random() * prompts.length)]);
@@ -41,72 +35,65 @@ export default function Journal() {
       text: entry.trim(),
       date: new Date().toLocaleString()
     };
-
-    try {
-      const updated = [newEntry, ...entries];
-      localStorage.setItem("journalEntries", JSON.stringify(updated));
-      setEntries(updated);
-      setEntry("");
-      setSuggestedPrompt(prompts[Math.floor(Math.random() * prompts.length)]);
-      setStorageError(false);
-    } catch (e) {
-      console.error("⚠️ Failed to save journal entry:", e);
-      setStorageError(true);
-    }
+    const updatedEntries = [newEntry, ...entries];
+    localStorage.setItem("journalEntries", JSON.stringify(updatedEntries));
+    setEntries(updatedEntries);
+    setEntry("");
+    setSuggestedPrompt(prompts[Math.floor(Math.random() * prompts.length)]);
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4 text-center">📓 My Journal</h1>
+    <div className="p-6 pt-10 max-w-xl mx-auto min-h-screen flex flex-col">
+      <h1 className="text-3xl font-bold mb-6 text-center text-purple-700">📓 My Journal</h1>
 
-      <div className="mb-4 bg-yellow-100 p-3 rounded">
-        <p className="font-medium mb-1">💡 Need inspiration?</p>
+      <div className="mb-2 text-gray-700 text-sm text-center">
+        Journaling is proven to reduce stress, improve mood, and boost self-awareness. <br />
+        <span className="text-xs text-gray-500">
+          Source: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6124958/" target="_blank" rel="noopener noreferrer" className="underline">NIH</a>
+        </span>
+      </div>
+
+      <div className="mb-4 bg-yellow-100 p-3 rounded text-sm text-gray-800">
+        💡 <span className="font-medium">Need inspiration?</span><br />
         <button
           onClick={() => setEntry(suggestedPrompt)}
-          className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
->
+          className="underline text-purple-700 mt-1"
+        >
           {suggestedPrompt}
         </button>
       </div>
-
-      {storageError && (
-        <div className="mb-4 p-3 bg-red-100 text-red-800 border border-red-300 rounded text-sm">
-          ⚠️ Could not load or save your journal. Please try refreshing or check browser storage settings.
-        </div>
-      )}
 
       <textarea
         placeholder="Write your thoughts..."
         value={entry}
         onChange={(e) => setEntry(e.target.value)}
         rows={5}
-        className="w-full p-3 border border-gray-300 rounded mb-4"
+        className="w-full p-3 border border-gray-300 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-purple-400 transition"
       />
 
       <button
         onClick={handleSave}
-        className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
->
+        className="w-full py-2 bg-purple-600 text-white font-semibold rounded hover:bg-purple-700 mb-6 transition"
+      >
         Save Entry
       </button>
 
-      <h2 className="text-xl font-semibold mb-2">🕰 Past Entries</h2>
+      <h2 className="text-lg font-semibold mb-2 text-purple-600">🕰 Past Entries</h2>
       {entries.length === 0 ? (
         <p className="text-gray-500 mb-4">No journal entries yet.</p>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-3">
           {entries.map((e, index) => (
-            <div key={index} className="p-3 border rounded bg-white shadow-sm">
-              <p className="text-sm text-gray-500 mb-1">{e.date}</p>
-              <p>{e.text}</p>
+            <div key={index} className="p-3 border rounded bg-white shadow-sm text-sm">
+              <p className="text-gray-500 mb-1">{e.date}</p>
+              <p className="text-gray-800">{e.text}</p>
             </div>
           ))}
         </div>
       )}
 
-      <div className="mt-6">
-        <Link to="/"className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
->
+      <div className="mt-auto pt-8 text-center">
+        <Link to="/" className="text-sm text-blue-600 hover:underline">
           ⬅ Back to Home
         </Link>
       </div>

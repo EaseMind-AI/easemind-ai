@@ -31,12 +31,9 @@ export default function Reminder() {
         Save Reminder
       </button>
 
-      <Link
-        to="/"
-        className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
->
-        ⬅ Back to Home
-      </Link>
-    </div>
+       <Link to="/" className="btn btn-secondary">
+    ⬅ Back to Home
+  </Link>
+</div>
   );
 }

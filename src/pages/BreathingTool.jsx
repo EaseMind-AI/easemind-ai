@@ -39,22 +39,41 @@ export default function BreathingTool() {
     setCycle(0);
   };
 
+  const resetExercise = () => {
+    setIsRunning(false);
+    setPhase("Ready?");
+    setCountdown(0);
+    setCycle(0);
+  };
+
   return (
     <div className="p-6 max-w-xl mx-auto text-center">
       <h1 className="text-3xl font-bold mb-4">🧘 Breathing Exercise</h1>
-      <p className="mb-4 text-gray-700">
-        Follow this calming breathing pattern to help reduce stress and anxiety.
+      <p className="mb-2 text-gray-700">
+        Paced breathing (like 4-4-6-2) activates your parasympathetic nervous system, helping reduce stress and anxiety. <br />
+        <span className="text-xs text-gray-500">Source: <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6137615/" target="_blank" rel="noopener noreferrer" className="underline">NIH</a></span>
+      </p>
+      <p className="mb-4 text-gray-600">
+        Follow the instructions below. Try to repeat for at least 3 cycles.
       </p>
 
       <div className="my-6">
         <div className="text-4xl font-semibold mb-2">{phase}</div>
         {isRunning ? (
-          <div className="text-6xl font-bold text-purple-600">{countdown}</div>
+          <>
+            <div className="text-6xl font-bold text-purple-600 mb-2" aria-live="polite">{countdown}</div>
+            <button
+              onClick={resetExercise}
+              className="btn btn-secondary mt-2"
+            >
+              Reset
+            </button>
+          </>
         ) : (
           <button
             onClick={startExercise}
-           className="bg-primary hover:bg-primary/90 text-white font-semibold py-2 px-4 rounded transition"
->
+            className="btn btn-primary"
+          >
             Start Breathing
           </button>
         )}
@@ -62,7 +81,7 @@ export default function BreathingTool() {
 
       <Link
         to="/coping"
-        className="inline-block mt-6 px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400"
+        className="btn btn-secondary mt-4"
       >
         ⬅ Back to Coping Tools
       </Link>
